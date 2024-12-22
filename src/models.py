@@ -7,26 +7,48 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
-class Person(Base):
-    __tablename__ = 'person'
-    # Here we define columns for the table person
-    # Notice that each column is also a normal Python instance attribute.
+class User(Base):
+    __tablename__ = 'user'
+
     id = Column(Integer, primary_key=True)
-    name = Column(String(250), nullable=False)
+    name = Column(String(250))
+    password = Column(String(250))
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
+class People(Base):
+    __tablename__ = 'people'
+
     id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
+    name = Column(String(250))
+    description = Column(String(250))
 
-    def to_dict(self):
-        return {}
+class Planets(Base):
+    __tablename__ = 'planets'
 
-## Draw from SQLAlchemy base
+    id = Column(Integer, primary_key=True)
+    name = Column(String(250))
+    description = Column(String(250))
+
+class Fav_people(Base):
+    __tablename__ = 'fav_people'
+
+    id = Column(Integer, primary_key=True)
+    id_people = Column(Integer, ForeignKey('people.id'))
+    people = relationship(People)
+    id_user = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+class Fav_planets(Base):
+    __tablename__ = 'fav_planets'
+
+    id = Column(Integer, primary_key=True)
+    id_planets = Column(Integer, ForeignKey('planets.id'))
+    planets = relationship(Planets)
+    id_user = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+
+
+
+
+
 render_er(Base, 'diagram.png')
