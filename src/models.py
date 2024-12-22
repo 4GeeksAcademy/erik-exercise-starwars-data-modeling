@@ -13,6 +13,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250))
     password = Column(String(250))
+    email = Column(String(250))
 
 class People(Base):
     __tablename__ = 'people'
@@ -20,6 +21,7 @@ class People(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250))
     description = Column(String(250))
+    race = Column(String(250), nullable=False)
 
 class Planets(Base):
     __tablename__ = 'planets'
@@ -27,6 +29,8 @@ class Planets(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250))
     description = Column(String(250))
+    population = Column(String(250))
+    img = Column(String(250))
 
 class Fav_people(Base):
     __tablename__ = 'fav_people'
@@ -36,6 +40,8 @@ class Fav_people(Base):
     people = relationship(People)
     id_user = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    name = Column(String(250))
+    description = Column(String(250))
 
 class Fav_planets(Base):
     __tablename__ = 'fav_planets'
@@ -45,6 +51,8 @@ class Fav_planets(Base):
     planets = relationship(Planets)
     id_user = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    name = Column(String(250))
+    description = Column(String(250))
 
 
 
